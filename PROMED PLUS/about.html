@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>À propos - PROMED-PLUS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/logo-promed-plus-large.png">
+  <style>
+    * {
+      font-family: 'Open Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    /* Navigation améliorée */
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Animation pour le contenu principal */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Animation de flottement */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Design pour les cartes de valeurs */
+    .value-card {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      z-index: 1;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid rgba(30, 58, 138, 0.05);
+    }
+    
+    .value-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #1e3a8a, #3b82f6, #1e3a8a);
+      background-size: 200% 100%;
+      z-index: 2;
+    }
+    
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+    }
+    
+    .value-card:hover::before {
+      animation: shimmer 2s infinite linear;
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    
+    /* Carrousel amélioré */
+    .carousel-container {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    .carousel-slide {
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .carousel-indicator {
+      transition: all 0.3s ease;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .carousel-indicator.active {
+      background-color: white;
+      transform: scale(1.2);
+    }
+    
+    /* Design de la section équipe */
+    .team-card {
+      transition: all 0.4s ease;
+      border-radius: 20px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+    
+    .team-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%);
+      z-index: 0;
+    }
+    
+    .team-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+    }
+    
+    /* Fond de section amélioré */
+    .about-hero-gradient {
+      background: linear-gradient(135deg, 
+        #0c1a3a 0%, 
+        #1a237e 25%, 
+        #283593 50%, 
+        #3949ab 75%, 
+        #5c6bc0 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .about-hero-gradient::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(92, 107, 192, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(56, 142, 240, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(30, 136, 229, 0.08) 0%, transparent 50%);
+      z-index: 1;
+    }
+    
+    /* Éléments décoratifs */
+    .decorative-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(40px);
+      opacity: 0.1;
+      z-index: 0;
+    }
+    
+    /* Image de fond avec overlay */
+    .hero-image-overlay {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    
+    .hero-image-overlay::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.85) 0%, rgba(30, 58, 138, 0.6) 100%);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .carousel-container {
+        border-radius: 16px;
+      }
+      .value-card, .team-card {
+        margin-bottom: 1.5rem;
+      }
+
+      /* Footer plus compact et lisible sur mobile */
+      footer {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+      }
+
+      footer .flex.flex-col.md\:flex-row {
+        align-items: center;
+      }
+
+      footer img[alt="PROMED-PLUS Logo"] {
+        height: 4rem;
+        width: 4rem;
+      }
+
+      footer h2 {
+        font-size: 1.4rem;
+      }
+
+      footer p {
+        font-size: 0.85rem;
+      }
+
+      footer .text-sm {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Navigation -->
+<nav class="nav-glass fixed top-0 w-full z-50 border-b border-blue-100/30">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="relative">
+        <img src="images/logo-promed-plus.png" alt="PROMED-PLUS Logo" class="h-14 w-14 rounded-xl object-cover shadow-lg">
+        <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-blue-600 rounded-full flex items-center justify-center">
+          <div class="h-2 w-2 bg-white rounded-full"></div>
+        </div>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-blue-800">PROMED-PLUS</h1>
+        <p class="text-xs text-gray-500 -mt-1">Représentation Pharmaceutique</p>
+      </div>
+     </div>
+    
+    <ul class="hidden md:flex space-x-10 text-gray-700 font-medium">
+      <li><a href="index.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Accueil
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="about.html" class="text-blue-700 font-semibold relative group">
+        À propos
+        <span class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full"></span>
+      </a></li>
+      <li><a href="services.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Services
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="produits.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Produits
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="partenaires.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Partenaires
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="contact.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Contact
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+    </ul>
+    
+    <div class="md:hidden">
+      <button id="menuBtn" class="text-blue-700 text-2xl hover:text-blue-800 transition-colors">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-sm px-6 py-4 shadow-lg border-t border-gray-100">
+    <ul class="space-y-4">
+      <li><a href="index.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Accueil</a></li>
+      <li><a href="about.html" class="block text-blue-700 font-semibold text-lg py-2 pl-4 rounded-lg bg-blue-50">À propos</a></li>
+      <li><a href="services.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Services</a></li>
+      <li><a href="produits.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Produits</a></li>
+      <li><a href="partenaires.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Partenaires</a></li>
+      <li><a href="contact.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO Section avec carrousel -->
+<section class="pt-32 pb-20 relative overflow-hidden">
+  <!-- Carrousel d'images -->
+  <div class="carousel-container max-w-7xl mx-auto px-6 mb-12 h-96 md:h-[500px]">
+    <div id="carousel" class="relative w-full h-full overflow-hidden rounded-2xl">
+      <!-- Image 1 -->
+      <div class="carousel-slide absolute inset-0 w-full h-full">
+        <div class="relative w-full h-full">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-900 to-blue-700">
+            <div class="absolute inset-0 bg-[url('images/produits/medeci_preventive.jpg')] bg-cover bg-center opacity-30"></div>
+          </div>
+          <!-- Overlay et contenu -->
+          <div class="relative z-10 flex items-center h-full px-10 md:px-20">
+            <div class="text-white max-w-2xl">
+              <div class="inline-flex items-center bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
+                <i class="fas fa-star text-yellow-300 mr-2"></i>
+                <span class="font-semibold">20+ ans d'expertise pharmaceutique</span>
+              </div>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Notre Histoire & <span class="text-cyan-300">Mission</span></h1>
+              <p class="text-xl text-blue-100 mb-8">
+                Plus de deux décennies d'excellence au service des laboratoires internationaux en Afrique de l'Ouest.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Image 2 -->
+      <div class="carousel-slide absolute inset-0 w-full h-full translate-x-full">
+        <div class="relative w-full h-full">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-800 to-cyan-700">
+            <div class="absolute inset-0 bg-[url('images/produits/disposi_medicaux.jpg')] bg-cover bg-center opacity-30"></div>
+          </div>
+          <div class="relative z-10 flex items-center h-full px-10 md:px-20">
+            <div class="text-white max-w-2xl">
+              <div class="inline-flex items-center bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
+                <i class="fas fa-handshake text-green-300 mr-2"></i>
+                <span class="font-semibold">Partenariats durables</span>
+              </div>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Expertise <span class="text-emerald-300">Terrain</span></h1>
+              <p class="text-xl text-blue-100 mb-8">
+                Une connaissance approfondie des marchés ouest-africains et des réalités locales.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Image 3 -->
+      <div class="carousel-slide absolute inset-0 w-full h-full translate-x-full">
+        <div class="relative w-full h-full">
+          <div class="absolute inset-0 bg-gradient-to-r from-indigo-800 to-purple-700">
+            <div class="absolute inset-0 bg-[url('images/about/digital-tablet.jpg')] bg-cover bg-center opacity-30"></div>
+          </div>
+          <div class="relative z-10 flex items-center h-full px-10 md:px-20">
+            <div class="text-white max-w-2xl">
+              <div class="inline-flex items-center bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
+                <i class="fas fa-chart-line text-orange-300 mr-2"></i>
+                <span class="font-semibold">Croissance garantie</span>
+              </div>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Innovation & <span class="text-purple-300">Performance</span></h1>
+              <p class="text-xl text-blue-100 mb-8">
+                Des stratégies commerciales adaptées pour maximiser votre impact sur le marché.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Image 4 -->
+      <div class="carousel-slide absolute inset-0 w-full h-full translate-x-full">
+        <div class="relative w-full h-full">
+          <div class="absolute inset-0 bg-gradient-to-r from-indigo-800 to-blue-700">
+            <div class="absolute inset-0 bg-[url('images/about/marketing_pharm.jpg')] bg-cover bg-center opacity-30"></div>
+          </div>
+          <div class="relative z-10 flex items-center h-full px-10 md:px-20">
+            <div class="text-white max-w-2xl">
+              <div class="inline-flex items-center bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-6">
+                <i class="fas fa-users-medical text-teal-300 mr-2"></i>
+                <span class="font-semibold">Équipe terrain dédiée</span>
+              </div>
+              <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Réseau <span class="text-teal-300">Régional</span> Performant</h1>
+              <p class="text-xl text-blue-100 mb-8">
+                Un maillage territorial complet avec des délégués expérimentés couvrant tous les points stratégiques du Mali et de la sous-région.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <!-- Contrôles du carrousel -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-20">
+      <button class="carousel-indicator w-3 h-3 rounded-full active" data-slide="0"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full" data-slide="1"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full" data-slide="2"></button>
+      <button class="carousel-indicator w-3 h-3 rounded-full" data-slide="3"></button>
+    </div>
+    
+    <!-- Flèches de navigation -->
+    <button id="prevBtn" class="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-20">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button id="nextBtn" class="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white w-12 h-12 rounded-full flex items-center justify-center transition-all z-20">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+  
+  <!-- Statistiques -->
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 text-center shadow-lg fade-in-up">
+        <div class="text-4xl font-bold text-blue-700 mb-2">2003</div>
+        <div class="text-gray-600 font-medium">Année de création</div>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 text-center shadow-lg fade-in-up">
+        <div class="text-4xl font-bold text-blue-700 mb-2">15+</div>
+        <div class="text-gray-600 font-medium">Partenaires internationaux</div>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 text-center shadow-lg fade-in-up">
+        <div class="text-4xl font-bold text-blue-700 mb-2">100%</div>
+        <div class="text-gray-600 font-medium">Taux de satisfaction</div>
+      </div>
+      <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-6 text-center shadow-lg fade-in-up">
+        <div class="text-4xl font-bold text-blue-700 mb-2">Multi</div>
+        <div class="text-gray-600 font-medium">Spécialités couvertes</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Qui sommes-nous -->
+<section class="py-20 max-w-7xl mx-auto px-6">
+  <div class="text-center mb-16 fade-in-up">
+    <h2 class="text-4xl md:text-5xl font-bold text-blue-800 mb-6">Qui <span class="text-blue-600">sommes-nous</span> ?</h2>
+    <div class="h-1 w-32 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto rounded-full mb-8"></div>
+  </div>
+  
+  <div class="grid md:grid-cols-2 gap-12 items-center">
+    <div class="fade-in-up">
+      <div class="bg-white rounded-3xl p-10 shadow-2xl">
+        <h3 class="text-2xl font-bold text-blue-800 mb-6">
+          <span class="bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">PROMED-PLUS</span> en bref
+        </h3>
+        <p class="text-gray-700 leading-relaxed text-lg mb-6">
+          <strong class="text-blue-800">PROMED-PLUS</strong> est une agence spécialisée dans la représentation et la promotion des produits pharmaceutiques et parapharmaceutiques au Mali et dans la sous-région.
+        </p>
+        
+        <p class="text-gray-700 leading-relaxed mb-6">
+          Forte de plus de deux décennies d'expérience, notre agence s'est construite aux côtés des plus grands laboratoires pharmaceutiques internationaux. Nous avons développé une expertise terrain unique qui nous permet d'accompagner efficacement nos partenaires dans leur développement commercial et leur implantation régionale.
+        </p>
+        
+        <p class="text-gray-700 leading-relaxed">
+          Notre mission est d'optimiser la rentabilité de votre portefeuille produit à l'export grâce à des solutions sur mesure, une équipe structurée sur le terrain et des engagements d'objectifs clairs.
+        </p>
+        
+        <div class="mt-8 pt-8 border-t border-gray-100 flex items-center">
+          <div class="h-14 w-14 bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl flex items-center justify-center mr-4">
+            <i class="fas fa-bullseye text-2xl"></i>
+          </div>
+          <div>
+            <div class="font-bold text-gray-800">Notre Vision</div>
+            <div class="text-gray-600 text-sm">Devenir le partenaire de référence pour le développement pharmaceutique en Afrique de l'Ouest</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="fade-in-up">
+      <div class="relative">
+        <!-- Image illustrative (remplacer par une image réelle) -->
+        <div class="hero-image-overlay rounded-3xl h-[500px]">
+          <div class="absolute inset-0 bg-[url('images/about/medoc-etagere2.jpg')] bg-cover bg-center"></div>
+          <div class="relative z-10 h-full flex flex-col justify-end p-10">
+            <div class="bg-white/90 backdrop-blur-sm rounded-2xl p-6">
+              <h3 class="text-xl font-bold text-blue-800 mb-3">Notre Engagement</h3>
+              <p class="text-gray-700">
+                Chaque membre de notre équipe est soumis à un contrat d'objectifs quantitatifs et qualitatifs, avec un reporting hebdomadaire et mensuel rigoureux.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Éléments décoratifs -->
+        <div class="absolute -top-6 -right-6 h-24 w-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-3xl -rotate-12 floating-element shadow-xl"></div>
+        <div class="absolute -bottom-6 -left-6 h-20 w-20 bg-gradient-to-br from-blue-600 to-indigo-500 rounded-2xl rotate-12 floating-element shadow-xl" style="animation-delay: 2s;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Nos Valeurs -->
+<section class="py-20 bg-gradient-to-b from-blue-50/50 to-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-in-up">
+      <h2 class="text-4xl md:text-5xl font-bold text-blue-800 mb-6">Nos <span class="text-blue-600">Valeurs</span></h2>
+      <div class="h-1 w-32 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto rounded-full mb-8"></div>
+      <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+        Les principes fondamentaux qui guident chacune de nos actions et collaborations
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="value-card fade-in-up p-8">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 h-16 w-16 bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <i class="fas fa-handshake text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">Éthique & Transparence</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Nous construisons des relations durables basées sur l'intégrité et la clarté dans toutes nos collaborations. Chaque décision est prise dans le respect des normes éthiques les plus strictes.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="value-card fade-in-up p-8">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 h-16 w-16 bg-gradient-to-br from-green-600 to-emerald-500 text-white rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <i class="fas fa-balance-scale text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">Conformité Réglementaire</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Le respect des normes locales et internationales est au cœur de notre approche opérationnelle. Nous garantissons une conformité totale à toutes les exigences réglementaires.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="value-card fade-in-up p-8">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 h-16 w-16 bg-gradient-to-br from-purple-600 to-violet-500 text-white rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <i class="fas fa-chart-line text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">Performance Commerciale</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Nous nous engageons sur des résultats mesurables et mettons en œuvre les moyens nécessaires pour les atteindre. Notre approche est centrée sur la création de valeur pour nos partenaires.
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="value-card fade-in-up p-8">
+        <div class="flex items-start">
+          <div class="flex-shrink-0 h-16 w-16 bg-gradient-to-br from-amber-600 to-orange-500 text-white rounded-2xl flex items-center justify-center mr-6 shadow-lg">
+            <i class="fas fa-graduation-cap text-2xl"></i>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold text-blue-800 mb-4">Expertise Sectorielle</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Notre connaissance approfondie du marché pharmaceutique nous permet d'apporter des solutions adaptées. Nous investissons continuellement dans la formation et le développement de notre équipe.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Notre Équipe -->
+<section class="py-20 max-w-7xl mx-auto px-6">
+  <div class="text-center mb-16 fade-in-up">
+    <h2 class="text-4xl md:text-5xl font-bold text-blue-800 mb-6">Notre <span class="text-blue-600">Organisation</span></h2>
+    <div class="h-1 w-32 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto rounded-full mb-8"></div>
+    <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+      Une structure hiérarchique claire pour une efficacité opérationnelle maximale
+    </p>
+  </div>
+  
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="team-card fade-in-up p-10 text-center">
+      <div class="h-24 w-24 mx-auto bg-gradient-to-br from-blue-600 to-cyan-500 text-white rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-xl">
+        <i class="fas fa-user-tie"></i>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Direction Générale</h3>
+      <p class="text-gray-600 mb-6">
+        Pilote la stratégie et garantit l'excellence opérationnelle de l'agence. Assure le développement des partenariats stratégiques et la conformité réglementaire.
+      </p>
+      <div class="h-1 w-16 bg-gradient-to-r from-blue-400 to-cyan-400 mx-auto rounded-full"></div>
+    </div>
+    
+    <div class="team-card fade-in-up p-10 text-center">
+      <div class="h-24 w-24 mx-auto bg-gradient-to-br from-green-600 to-emerald-500 text-white rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-xl">
+        <i class="fas fa-users"></i>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Direction de la Promotion</h3>
+      <p class="text-gray-600 mb-6">
+        Encadre et supervise les équipes terrain pour une performance optimale. Développe les stratégies commerciales et marketing adaptées aux différents marchés.
+      </p>
+      <div class="h-1 w-16 bg-gradient-to-r from-green-400 to-emerald-400 mx-auto rounded-full"></div>
+    </div>
+    
+    <div class="team-card fade-in-up p-10 text-center">
+      <div class="h-24 w-24 mx-auto bg-gradient-to-br from-purple-600 to-violet-500 text-white rounded-3xl flex items-center justify-center text-4xl mb-8 shadow-xl">
+        <i class="fas fa-map-marker-alt"></i>
+      </div>
+      <h3 class="text-2xl font-bold text-gray-800 mb-4">Délégués Régionaux</h3>
+      <p class="text-gray-600 mb-6">
+        Représentent nos partenaires sur le terrain avec professionnalisme et expertise. Assurent la relation directe avec les professionnels de santé et les institutions.
+      </p>
+      <div class="h-1 w-16 bg-gradient-to-r from-purple-400 to-violet-400 mx-auto rounded-full"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section Notre Fondateur -->
+<section class="py-20 bg-gradient-to-b from-blue-50 to-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16 fade-in-up">
+      <h2 class="text-4xl md:text-5xl font-bold text-blue-800 mb-6">Notre <span class="text-blue-600">Fondateur</span></h2>
+      <div class="h-1 w-32 bg-gradient-to-r from-cyan-400 to-blue-600 mx-auto rounded-full mb-8"></div>
+    </div>
+    
+    <div class="max-w-5xl mx-auto">
+      <div class="bg-white rounded-3xl shadow-2xl overflow-hidden fade-in-up">
+        <div class="md:flex">
+          <!-- Photo du fondateur -->
+          <div class="md:w-2/5 p-10 flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50">
+            <div class="relative">
+              <div class="h-72 w-72 rounded-full border-8 border-white shadow-2xl overflow-hidden">
+                <!-- REMPLACEZ "images/Profil.png" PAR LE CHEMIN DE VOTRE PHOTO -->
+                <img src="images/Profil.png" alt="Promoteur PROMED-PLUS" class="h-full w-full object-cover">
+              </div>
+              <div class="absolute -bottom-4 -right-4 h-20 w-20 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center shadow-2xl">
+                <i class="fas fa-award text-white text-3xl"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Informations -->
+          <div class="md:w-3/5 p-10 md:p-14">
+            <div class="inline-flex items-center bg-blue-50 px-6 py-2 rounded-full mb-6">
+              <i class="fas fa-user-md text-blue-600 mr-2"></i>
+              <span class="text-blue-700 font-semibold">Fondateur & Directeur Général</span>
+            </div>
+            
+            <h3 class="text-3xl font-bold text-blue-800 mb-4">Dr. [Nom du Promoteur]</h3>
+            
+            <div class="h-1 w-24 bg-gradient-to-r from-blue-400 to-cyan-400 mb-8"></div>
+            
+            <p class="text-gray-700 leading-relaxed mb-6">
+              Pharmacien de formation avec plus de 20 ans d'expérience dans l'industrie pharmaceutique africaine, 
+              [Nom du Promoteur] a fondé PROMED-PLUS en 2003 avec la vision de créer un pont entre les laboratoires 
+              internationaux et les marchés ouest-africains.
+            </p>
+            
+            <p class="text-gray-700 leading-relaxed mb-10">
+              Son expertise combinée en pharmacologie, réglementation et commerce international a permis à 
+              PROMED-PLUS de devenir l'agence de référence au Mali et dans la sous-région.
+            </p>
+            
+            <div class="grid grid-cols-2 gap-6">
+              <div class="flex items-center">
+                <div class="h-12 w-12 bg-gradient-to-br from-blue-500 to-cyan-400 text-white rounded-xl flex items-center justify-center mr-4">
+                  <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-gray-800">Docteur en Pharmacie</div>
+                  <div class="text-sm text-gray-600">Université de...</div>
+                </div>
+              </div>
+              
+              <div class="flex items-center">
+                <div class="h-12 w-12 bg-gradient-to-br from-green-500 to-emerald-400 text-white rounded-xl flex items-center justify-center mr-4">
+                  <i class="fas fa-trophy"></i>
+                </div>
+                <div>
+                  <div class="font-bold text-gray-800">20+ ans</div>
+                  <div class="text-sm text-gray-600">Expérience</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-10 pt-8 border-t border-gray-100">
+              <div class="text-lg font-semibold text-blue-800 mb-4">Citation</div>
+              <div class="text-gray-700 italic border-l-4 border-blue-500 pl-6 py-2">
+                "Notre mission est de faciliter l'accès aux médicaments de qualité en Afrique de l'Ouest tout en créant de la valeur pour nos partenaires internationaux."
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-blue-800 to-blue-600 text-white relative overflow-hidden">
+  <div class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-white/10 to-transparent rounded-full"></div>
+  <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tl from-white/10 to-transparent rounded-full"></div>
+  
+  <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-10 fade-in-up">
+      Prêt à collaborer avec <span class="text-cyan-200">PROMED-PLUS</span> ?
+    </h2>
+    <p class="text-xl text-blue-100 mb-12 max-w-3xl mx-auto fade-in-up">
+      Notre équipe d'experts vous accompagne dans votre développement commercial en Afrique de l'Ouest.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-6 justify-center fade-in-up">
+      <a href="contact.html" class="px-10 py-5 bg-white text-blue-800 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 flex items-center justify-center">
+        <i class="fas fa-calendar-alt mr-3 text-blue-600"></i>
+        <span>Prendre rendez-vous</span>
+      </a>
+      <a href="services.html" class="px-10 py-5 bg-transparent border-2 border-white/70 text-white font-bold rounded-xl hover:bg-white/10 transition-all duration-300 backdrop-blur-sm flex items-center justify-center">
+        <i class="mr-3 fas fa-chart-line"></i>
+        <span>Découvrir nos services</span>
+      </a>
+    </div>
+  </div>
+</section>
+<!-- Footer amélioré -->
+<footer class="pt-16 pb-12 bg-gradient-to-b from-blue-900 to-blue-950 text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+      <!-- Colonne 1 : Logo et coordonnées -->
+      <div class="md:w-2/5">
+        <div class="flex items-center space-x-6 mb-8">
+          <div class="relative">
+            <img src="images/logo-promed-plus.png" alt="PROMED-PLUS Logo" class="h-24 w-24 rounded-xl object-cover shadow-xl">
+            <div class="absolute -bottom-2 -right-2 h-8 w-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
+              <i class="fas fa-plus text-white text-xs"></i>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">PROMED-PLUS</h2>
+            <p class="text-blue-300 text-sm mt-1">Agence de Représentation Pharmaceutique</p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-blue-800/40 to-blue-900/40 backdrop-blur-sm rounded-2xl p-6 border border-blue-700/30">
+          <p class="text-blue-200 mb-4">
+            <i class="fas fa-map-marker-alt mr-4 text-cyan-300"></i>
+            TSF Rue 557 Face P76, Route Cité du Niger<br>
+            <span class="ml-9">Bamako / Mali</span>
+          </p>
+          <p class="text-blue-200 mb-4">
+            <i class="fas fa-phone-alt mr-4 text-cyan-300"></i>
+            Tél (+223) 66 66 88 81
+          </p>
+          <p class="text-blue-200">
+            <i class="fas fa-envelope mr-4 text-cyan-300"></i>
+            contact@promed-plus.ml
+          </p>
+        </div>
+      </div>
+      
+      <!-- Colonnes 2-3-4 -->
+      <div class="md:w-3/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Liens rapides -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Navigation</h3>
+          <a href="index.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-home mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Accueil</span>
+          </a>
+          <a href="about.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-building mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>À propos</span>
+          </a>
+          <a href="services.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-briefcase-medical mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Services</span>
+          </a>
+          <a href="produits.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-pills mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Produits</span>
+          </a>
+          <a href="partenaires.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-handshake mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Partenaires</span>
+          </a>
+          <a href="contact.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-headset mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <!-- Services -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Nos Services</h3>
+          <a href="services.html#representation" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-users-cog mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Représentation commerciale</span>
+          </a>
+          <a href="services.html#marketing" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-chart-line mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Stratégie & marketing</span>
+          </a>
+          <a href="services.html#affaires" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-file-medical mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Affaires pharmaceutiques</span>
+          </a>
+          <a href="devis.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-file-invoice-dollar mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Demande de devis</span>
+          </a>
+        </div>
+
+        <!-- Réseaux sociaux & Liens utiles -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Connectez-vous</h3>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" aria-label="LinkedIn" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" aria-label="Facebook" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" aria-label="WhatsApp" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section copyright -->
+    <div class="border-t border-blue-800/50 mt-12 pt-10 text-center">
+      <div class="text-blue-300 text-sm mb-4">
+        &copy; 2003-2025 PROMED-PLUS — Agence de Représentation Pharmaceutique — Tous droits réservés.
+      </div>
+      <div class="text-blue-400/70 text-sm">
+        Site réalisé avec expertise pour l'industrie pharmaceutique
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+  // Menu mobile
+  document.getElementById('menuBtn').addEventListener('click', function() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+  });
+
+  // Carrousel
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.getElementById('carousel');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    
+    // Initialiser le carrousel
+    function initCarousel() {
+      slides.forEach((slide, index) => {
+        if (index === 0) {
+          slide.style.transform = 'translateX(0)';
+        } else {
+          slide.style.transform = 'translateX(100%)';
+        }
+      });
+      updateIndicators();
+    }
+    
+    // Mettre à jour les indicateurs
+    function updateIndicators() {
+      indicators.forEach((indicator, index) => {
+        if (index === currentSlide) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    }
+    
+    // Changer de slide
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      
+      slides.forEach((slide, index) => {
+        if (index === slideIndex) {
+          slide.style.transform = 'translateX(0)';
+        } else if (index < slideIndex) {
+          slide.style.transform = 'translateX(-100%)';
+        } else {
+          slide.style.transform = 'translateX(100%)';
+        }
+      });
+      
+      updateIndicators();
+    }
+    
+    // Slide suivant
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      goToSlide(currentSlide);
+    }
+    
+    // Slide précédent
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      goToSlide(currentSlide);
+    }
+    
+    // Événements des boutons
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    // Événements des indicateurs
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+    
+    // Auto-rotation du carrousel
+    let carouselInterval = setInterval(nextSlide, 5000);
+    
+    // Arrêter l'auto-rotation au survol
+    carousel.addEventListener('mouseenter', () => {
+      clearInterval(carouselInterval);
+    });
+    
+    // Reprendre l'auto-rotation quand la souris quitte
+    carousel.addEventListener('mouseleave', () => {
+      carouselInterval = setInterval(nextSlide, 5000);
+    });
+    
+    // Initialiser le carrousel
+    initCarousel();
+    
+    // Animation des éléments au scroll
+    const fadeElements = document.querySelectorAll('.fade-in-up');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeElements.forEach(el => observer.observe(el));
+  });
+</script>
+</body>
+</html>

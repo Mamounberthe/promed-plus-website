@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demande de Devis - PROMED-PLUS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/logo-promed-plus-large.png">
+  
+  <style>
+    * { 
+      font-family: 'Open Sans', sans-serif; 
+    }
+    h1, h2, h3, h4, h5, h6 { 
+      font-family: 'Montserrat', sans-serif; 
+    }
+    
+    /* Navigation améliorée (même style que l'accueil) */
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Animation pour le contenu principal */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .fade-in-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Responsive mobile */
+    @media (max-width: 768px) {
+      /* Footer plus compact et lisible sur mobile */
+      footer {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+      }
+
+      footer .flex.flex-col.md\:flex-row {
+        align-items: center;
+      }
+
+      footer img[alt="PROMED-PLUS Logo"] {
+        height: 4rem;
+        width: 4rem;
+      }
+
+      footer h2 {
+        font-size: 1.4rem;
+      }
+
+      footer p {
+        font-size: 0.85rem;
+      }
+
+      footer .text-sm {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+
+<!-- Navigation avec animations (identique aux autres pages) -->
+<nav class="nav-glass fixed top-0 w-full z-50 border-b border-blue-100/30">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="relative">
+        <img src="images/logo-promed-plus.png" alt="PROMED-PLUS Logo" class="h-14 w-14 rounded-xl object-cover shadow-lg">
+        <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-blue-600 rounded-full flex items-center justify-center">
+          <div class="h-2 w-2 bg-white rounded-full"></div>
+        </div>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-blue-800">PROMED-PLUS</h1>
+        <p class="text-xs text-gray-500 -mt-1">Représentation Pharmaceutique</p>
+      </div>
+    </div>
+    
+    <ul class="hidden md:flex space-x-10 text-gray-700 font-medium">
+      <li><a href="index.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Accueil
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="about.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        À propos
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="services.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Services
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="produits.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Produits
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="partenaires.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Partenaires
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="contact.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Contact
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+    </ul>
+    
+    <div class="md:hidden">
+      <button id="menuBtn" class="text-blue-700 text-2xl hover:text-blue-800 transition-colors">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-sm px-6 py-4 shadow-lg border-t border-gray-100">
+    <ul class="space-y-4">
+      <li><a href="index.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Accueil</a></li>
+      <li><a href="about.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">À propos</a></li>
+      <li><a href="services.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Services</a></li>
+      <li><a href="produits.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Produits</a></li>
+      <li><a href="partenaires.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Partenaires</a></li>
+      <li><a href="contact.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="pt-32 pb-20 max-w-5xl mx-auto px-6">
+  <!-- En-tête avec animation -->
+  <div class="text-center mb-16 fade-in-up">
+    <div class="inline-flex items-center bg-blue-50 text-blue-700 px-6 py-3 rounded-full mb-8 border border-blue-200">
+      <i class="fas fa-file-invoice-dollar mr-3"></i>
+      <span class="font-semibold">Devis personnalisé en 48h</span>
+    </div>
+    <h1 class="text-5xl font-bold text-blue-800 mb-6">Demande de Devis</h1>
+    <div class="h-1 w-32 bg-blue-600 mx-auto rounded-full mb-8"></div>
+    <p class="mt-6 text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+      Obtenez un devis personnalisé pour nos services de représentation pharmaceutique. 
+      Notre équipe analysera vos besoins et vous proposera une solution sur mesure.
+    </p>
+  </div>
+  
+  <div class="grid lg:grid-cols-3 gap-12">
+    <!-- Services proposés avec animation -->
+    <div class="lg:col-span-1">
+      <div class="bg-white shadow-xl rounded-2xl p-8 sticky top-32 fade-in-up">
+        <h2 class="text-2xl font-bold text-blue-800 mb-8">Nos Services</h2>
+        
+        <div class="space-y-6">
+          <div class="flex items-start hover:bg-blue-50 p-3 rounded-lg transition-colors duration-200">
+            <div class="h-12 w-12 bg-blue-100 text-blue-700 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-users"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Représentation Commerciale</h3>
+              <p class="text-gray-600 text-sm mt-1">Visite médicale, promotion produits</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start hover:bg-green-50 p-3 rounded-lg transition-colors duration-200">
+            <div class="h-12 w-12 bg-green-100 text-green-700 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-file-medical"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Affaires Réglementaires</h3>
+              <p class="text-gray-600 text-sm mt-1">Enregistrement, pharmacovigilance</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start hover:bg-purple-50 p-3 rounded-lg transition-colors duration-200">
+            <div class="h-12 w-12 bg-purple-100 text-purple-700 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Marketing Pharmaceutique</h3>
+              <p class="text-gray-600 text-sm mt-1">Études marché, stratégie promotionnelle</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start hover:bg-amber-50 p-3 rounded-lg transition-colors duration-200">
+            <div class="h-12 w-12 bg-amber-100 text-amber-700 rounded-lg flex items-center justify-center mr-4">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-800">Formation Équipes</h3>
+              <p class="text-gray-600 text-sm mt-1">Formation médicale, techniques de vente</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-10 pt-8 border-t border-gray-200">
+          <h3 class="font-bold text-gray-800 mb-4">Pourquoi choisir PROMED-PLUS ?</h3>
+          <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-200">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span>+20 ans d'expérience</span>
+            </li>
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-200">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span>Équipe terrain structurée</span>
+            </li>
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-200">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span>Expertise réglementaire</span>
+            </li>
+            <li class="flex items-start hover:translate-x-2 transition-transform duration-200">
+              <i class="fas fa-check text-green-500 mr-3 mt-1"></i>
+              <span>Reporting détaillé mensuel</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Formulaire de devis avec animation -->
+    <div class="lg:col-span-2">
+      <div class="bg-white shadow-2xl rounded-2xl p-10 fade-in-up">
+        <h2 class="text-3xl font-bold text-blue-800 mb-2">Formulaire de Demande</h2>
+        <p class="text-gray-600 mb-10">
+          Remplissez ce formulaire et nous vous enverrons un devis personnalisé sous 48h.
+        </p>
+        
+        <form id="devisForm" class="space-y-8">
+          <!-- Informations de contact -->
+          <div class="fade-in-up">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">
+              <i class="fas fa-user-circle mr-3 text-blue-600"></i>
+              Informations de contact
+            </h3>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
+                <label for="nom" class="block text-gray-700 font-medium mb-2">Nom *</label>
+                <input type="text" id="nom" name="nom" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+              </div>
+              
+              <div>
+                <label for="prenom" class="block text-gray-700 font-medium mb-2">Prénom *</label>
+                <input type="text" id="prenom" name="prenom" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+              </div>
+              
+              <div>
+                <label for="entreprise" class="block text-gray-700 font-medium mb-2">Entreprise / Laboratoire *</label>
+                <input type="text" id="entreprise" name="entreprise" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+              </div>
+              
+              <div>
+                <label for="poste" class="block text-gray-700 font-medium mb-2">Poste occupé *</label>
+                <input type="text" id="poste" name="poste" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+              </div>
+              
+              <div>
+                <label for="email" class="block text-gray-700 font-medium mb-2">Email *</label>
+                <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+              </div>
+              
+              <div>
+                <label for="telephone" class="block text-gray-700 font-medium mb-2">Téléphone *</label>
+                <input type="tel" id="telephone" name="telephone" required class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+              </div>
+            </div>
+          </div>
+          
+          <!-- Services demandés -->
+          <div class="fade-in-up">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">
+              <i class="fas fa-clipboard-list mr-3 text-blue-600"></i>
+              Services demandés
+            </h3>
+            
+            <div class="space-y-4">
+              <div class="flex items-center bg-gray-50 p-4 rounded-lg hover:bg-blue-50 transition-colors duration-200 group">
+                <input type="checkbox" id="service1" name="services[]" value="representation" class="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 group-hover:scale-110 transition-transform duration-200">
+                <label for="service1" class="ml-3 text-gray-700 cursor-pointer">
+                  <span class="font-medium">Représentation Commerciale</span>
+                  <span class="text-gray-600 text-sm block">Visite médicale, promotion produits, reporting</span>
+                </label>
+              </div>
+              
+              <div class="flex items-center bg-gray-50 p-4 rounded-lg hover:bg-green-50 transition-colors duration-200 group">
+                <input type="checkbox" id="service2" name="services[]" value="reglementaire" class="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 group-hover:scale-110 transition-transform duration-200">
+                <label for="service2" class="ml-3 text-gray-700 cursor-pointer">
+                  <span class="font-medium">Affaires Réglementaires</span>
+                  <span class="text-gray-600 text-sm block">Enregistrement produits, pharmacovigilance, conformité</span>
+                </label>
+              </div>
+              
+              <div class="flex items-center bg-gray-50 p-4 rounded-lg hover:bg-purple-50 transition-colors duration-200 group">
+                <input type="checkbox" id="service3" name="services[]" value="marketing" class="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 group-hover:scale-110 transition-transform duration-200">
+                <label for="service3" class="ml-3 text-gray-700 cursor-pointer">
+                  <span class="font-medium">Marketing Pharmaceutique</span>
+                  <span class="text-gray-600 text-sm block">Études marché, stratégie promotionnelle, supports</span>
+                </label>
+              </div>
+              
+              <div class="flex items-center bg-gray-50 p-4 rounded-lg hover:bg-amber-50 transition-colors duration-200 group">
+                <input type="checkbox" id="service4" name="services[]" value="formation" class="h-5 w-5 text-blue-600 rounded focus:ring-blue-500 group-hover:scale-110 transition-transform duration-200">
+                <label for="service4" class="ml-3 text-gray-700 cursor-pointer">
+                  <span class="font-medium">Formation d'Équipes</span>
+                  <span class="text-gray-600 text-sm block">Formation médicale, techniques de vente, management</span>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Informations complémentaires -->
+          <div class="fade-in-up">
+            <h3 class="text-xl font-semibold text-gray-800 mb-6 border-b pb-3">
+              <i class="fas fa-info-circle mr-3 text-blue-600"></i>
+              Informations complémentaires
+            </h3>
+            
+            <div class="space-y-6">
+              <div>
+                <label for="produits" class="block text-gray-700 font-medium mb-2">Nombre de produits à représenter</label>
+                <select id="produits" name="produits" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+                  <option value="">Sélectionnez...</option>
+                  <option value="1-5">1-5 produits</option>
+                  <option value="6-15">6-15 produits</option>
+                  <option value="16-30">16-30 produits</option>
+                  <option value="30+">Plus de 30 produits</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="territoire" class="block text-gray-700 font-medium mb-2">Territoire ciblé</label>
+                <select id="territoire" name="territoire" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+                  <option value="">Sélectionnez...</option>
+                  <option value="bamako">Bamako uniquement</option>
+                  <option value="mali">Tout le Mali</option>
+                  <option value="region">Région Ouest-Africaine</option>
+                  <option value="afrique">Afrique de l'Ouest</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="duree" class="block text-gray-700 font-medium mb-2">Durée estimée du contrat</label>
+                <select id="duree" name="duree" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400">
+                  <option value="">Sélectionnez...</option>
+                  <option value="6mois">6 mois</option>
+                  <option value="1an">1 an</option>
+                  <option value="2ans">2 ans</option>
+                  <option value="3ans+">3 ans et plus</option>
+                </select>
+              </div>
+              
+              <div>
+                <label for="message" class="block text-gray-700 font-medium mb-2">Informations supplémentaires</label>
+                <textarea id="message" name="message" rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 hover:border-blue-400" placeholder="Décrivez vos besoins spécifiques, produits concernés, objectifs commerciaux..."></textarea>
+              </div>
+            
+            </div>
+          </div>
+          
+          <!-- Confidentialité -->
+          <div class="bg-blue-50 p-6 rounded-xl fade-in-up hover:bg-blue-100 transition-colors duration-200">
+            <div class="flex items-start">
+              <input type="checkbox" id="confidentialite" name="confidentialite" required class="mt-1 mr-3 h-5 w-5 text-blue-600 focus:ring-blue-500 hover:scale-110 transition-transform duration-200">
+              <label for="confidentialite" class="text-gray-700 text-sm cursor-pointer">
+                J'accepte que mes données personnelles soient utilisées uniquement pour établir mon devis. 
+                Ces données ne seront pas transmises à des tiers. 
+              </label>
+            </div>
+          </div>
+          
+          <!-- Bouton d'envoi avec animation -->
+          <button type="submit" class="w-full py-5 bg-gradient-to-r from-blue-700 to-blue-600 text-white font-bold rounded-xl hover:from-blue-800 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-lg flex items-center justify-center group">
+            <i class="fas fa-paper-plane mr-3 group-hover:rotate-12 transition-transform duration-300"></i>
+            Envoyer ma demande de devis
+          </button>
+          
+          <p class="text-center text-gray-600 text-sm fade-in-up">
+            <i class="fas fa-clock mr-2"></i>
+            Réponse sous 48h ouvrées • Devis personnalisé gratuit
+          </p>
+        </form>
+        
+        <!-- Message de confirmation -->
+        <div id="confirmationDevis" class="hidden mt-8 p-6 bg-green-50 border border-green-200 rounded-xl fade-in-up">
+          <div class="flex items-center">
+            <div class="h-12 w-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-check text-xl"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-green-800 text-lg">Demande envoyée avec succès !</h3>
+              <p class="text-green-700 mt-1">
+                Nous avons bien reçu votre demande. Notre équipe vous contactera dans les 48h 
+                pour discuter de votre projet et vous transmettre un devis personnalisé.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (version accueil) -->
+<footer class="pt-16 pb-12 bg-gradient-to-b from-blue-900 to-blue-950 text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+      <!-- Colonne 1 : Logo et coordonnées -->
+      <div class="md:w-2/5">
+        <div class="flex items-center space-x-6 mb-8">
+          <div class="relative">
+            <img src="images/logo-promed-plus.png" alt="PROMED-PLUS Logo" class="h-24 w-24 rounded-xl object-cover shadow-xl">
+            <div class="absolute -bottom-2 -right-2 h-8 w-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
+              <i class="fas fa-plus text-white text-xs"></i>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">PROMED-PLUS</h2>
+            <p class="text-blue-300 text-sm mt-1">Agence de Représentation Pharmaceutique</p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-blue-800/40 to-blue-900/40 backdrop-blur-sm rounded-2xl p-6 border border-blue-700/30">
+          <p class="text-blue-200 mb-4">
+            <i class="fas fa-map-marker-alt mr-4 text-cyan-300"></i>
+            TSF Rue 557 Face P76, Route Cité du Niger<br>
+            <span class="ml-9">Bamako / Mali</span>
+          </p>
+          <p class="text-blue-200 mb-4">
+            <i class="fas fa-phone-alt mr-4 text-cyan-300"></i>
+            Tél (+223) 66 66 88 81
+          </p>
+          <p class="text-blue-200">
+            <i class="fas fa-envelope mr-4 text-cyan-300"></i>
+            contact@promed-plus.ml
+          </p>
+        </div>
+      </div>
+      
+      <!-- Colonnes 2-3-4 -->
+      <div class="md:w-3/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Liens rapides -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Navigation</h3>
+          <a href="index.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-home mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Accueil</span>
+          </a>
+          <a href="about.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-building mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>À propos</span>
+          </a>
+          <a href="services.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-briefcase-medical mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Services</span>
+          </a>
+          <a href="produits.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-pills mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Produits</span>
+          </a>
+          <a href="partenaires.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-handshake mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Partenaires</span>
+          </a>
+          <a href="contact.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-headset mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <!-- Services -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Nos Services</h3>
+          <a href="services.html#representation" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-users-cog mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Représentation commerciale</span>
+          </a>
+          <a href="services.html#marketing" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-chart-line mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Stratégie & marketing</span>
+          </a>
+          <a href="services.html#affaires" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-file-medical mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Affaires pharmaceutiques</span>
+          </a>
+          <a href="devis.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-file-invoice-dollar mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Demande de devis</span>
+          </a>
+        </div>
+
+        <!-- Réseaux sociaux & Liens utiles -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Connectez-vous</h3>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" aria-label="LinkedIn" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors hover:scale-110 transform duration-200">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" aria-label="Facebook" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors hover:scale-110 transform duration-200">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" aria-label="WhatsApp" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors hover:scale-110 transform duration-200">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section copyright -->
+    <div class="border-t border-blue-800/50 mt-12 pt-10 text-center">
+      <div class="text-blue-300 text-sm mb-4">
+        &copy; 2003-2025 PROMED-PLUS — Agence de Représentation Pharmaceutique — Tous droits réservés.
+      </div>
+      <div class="text-blue-400/70 text-sm">
+        Site réalisé avec expertise pour l'industrie pharmaceutique
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu mobile
+  document.getElementById('menuBtn').addEventListener('click', function() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+  });
+  
+  // Gestion du formulaire de devis
+  document.getElementById('devisForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Simulation d'envoi (remplacer par vrai backend)
+    const confirmation = document.getElementById('confirmationDevis');
+    confirmation.classList.remove('hidden');
+    confirmation.classList.add('visible');
+    confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Réinitialisation après 5 secondes
+    setTimeout(() => {
+      this.reset();
+      confirmation.classList.add('hidden');
+      confirmation.classList.remove('visible');
+    }, 5000);
+  });
+
+  // Animation des éléments au scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    // Activer les animations d'entrée
+    const fadeElements = document.querySelectorAll('.fade-in-up');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeElements.forEach(el => observer.observe(el));
+    
+    // Animation des éléments du formulaire
+    const formElements = document.querySelectorAll('#devisForm input, #devisForm select, #devisForm textarea');
+    formElements.forEach((el, index) => {
+      el.style.transitionDelay = `${index * 0.05}s`;
+    });
+  });
+</script>
+
+</body>
+</html>

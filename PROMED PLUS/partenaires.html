@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partenaires - PROMED-PLUS</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="images/logo-promed-plus-large.png">
+
+  <style>
+    * {
+      font-family: 'Open Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Navigation améliorée (même style que l'accueil) */
+    .nav-glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-container {
+      background: linear-gradient(145deg, #ffffff, #f5f7ff);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid #eef2ff;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .logo-container:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+      border-color: #3b82f6;
+    }
+    .logo-container:hover::before {
+      opacity: 1;
+    }
+    .logo-img-wrapper {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      background: rgb(255, 255, 255);
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    .logo-container:hover .logo-img-wrapper {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    .partner-logo {
+      max-height: 175px;
+      max-width: 200px;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.9;
+      transition: all 0.4s ease;
+    }
+
+    .logo-container:hover .partner-logo {
+      filter: grayscale(0%);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    .partner-category {
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+    .partner-category:hover {
+      border-color: #3b82f6;
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      transform: translateY(-5px);
+    }
+    .testimonial-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+      border-left: 6px solid #3b82f6;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      left: 30px;
+      font-size: 5rem;
+      color: #dbeafe;
+      font-family: serif;
+      font-weight: bold;
+      z-index: 0;
+    }
+
+    /* Marquee partenaires (mobile) */
+    .partners-marquee {
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+    }
+
+    .partners-track {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      width: max-content;
+      animation: partners-scroll 30s linear infinite;
+    }
+
+    .partners-item {
+      flex: 0 0 auto;
+      min-width: 180px;
+    }
+
+    .partners-item .logo-img-wrapper {
+      height: 120px;
+      margin-bottom: 0.75rem;
+    }
+
+    .partners-item .partner-logo {
+      max-height: 90px;
+      max-width: 140px;
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    @keyframes partners-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* Pause légère de l'animation quand l'utilisateur interagit */
+    .partners-marquee:active .partners-track,
+    .partners-marquee:focus-within .partners-track {
+      animation-play-state: paused;
+    }
+
+    /* Footer + CTA + partenaires responsive (mobile uniquement) */
+    @media (max-width: 768px) {
+
+      /* Footer */
+      footer {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+      }
+
+      footer .flex.flex-col.md\:flex-row {
+        align-items: center;
+      }
+
+      footer img[alt="PROMED-PLUS Logo"] {
+        height: 4rem;
+        width: 4rem;
+      }
+
+      footer h2 {
+        font-size: 1.4rem;
+      }
+
+      footer p {
+        font-size: 0.85rem;
+      }
+
+      footer .text-sm {
+        font-size: 0.8rem;
+      }
+
+      /* Section CTA "Rejoignez Notre Réseau d'Excellence" */
+      .text-center.bg-gradient-to-br.from-blue-50.to-white.rounded-3xl.p-16.shadow-xl.border.border-blue-100 {
+        padding: 2.5rem 1.5rem;
+        margin-top: 3rem;
+      }
+
+      .text-center.bg-gradient-to-br.from-blue-50.to-white.rounded-3xl.p-16.shadow-xl.border.border-blue-100 h3 {
+        font-size: 1.6rem;
+        line-height: 1.3;
+      }
+
+      .text-center.bg-gradient-to-br.from-blue-50.to-white.rounded-3xl.p-16.shadow-xl.border.border-blue-100 p {
+        font-size: 1rem;
+      }
+
+      .text-center.bg-gradient-to-br.from-blue-50.to-white.rounded-3xl.p-16.shadow-xl.border.border-blue-100 .flex.flex-col.sm\:flex-row {
+        gap: 0.75rem;
+      }
+
+      .text-center.bg-gradient-to-br.from-blue-50.to-white.rounded-3xl.p-16.shadow-xl.border.border-blue-100 a {
+        width: 100%;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+
+      /* Marquee partenaires : ajustements mobile */
+      .partners-marquee {
+        padding: 1rem 0;
+      }
+
+      .partners-item {
+        min-width: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+
+<!-- Navigation (version accueil) -->
+<nav class="nav-glass fixed top-0 w-full z-50 border-b border-blue-100/30">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <div class="relative">
+        <img src="images/logo-promed-plus.png" alt="PROMED-PLUS Logo" class="h-14 w-14 rounded-xl object-cover shadow-lg">
+        <div class="absolute -bottom-1 -right-1 h-5 w-5 bg-blue-600 rounded-full flex items-center justify-center">
+          <div class="h-2 w-2 bg-white rounded-full"></div>
+        </div>
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-blue-800">PROMED-PLUS</h1>
+        <p class="text-xs text-gray-500 -mt-1">Représentation Pharmaceutique</p>
+      </div>
+     </div>
+    
+    <ul class="hidden md:flex space-x-10 text-gray-700 font-medium">
+      <li><a href="index.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Accueil
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="about.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        À propos
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="services.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Services
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="produits.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Produits
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+      <li><a href="partenaires.html" class="text-blue-700 font-semibold relative group">
+        Partenaires
+        <span class="absolute -bottom-1 left-0 w-full h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full"></span>
+      </a></li>
+      <li><a href="contact.html" class="hover:text-blue-700 transition-colors duration-200 relative group">
+        Contact
+        <span class="absolute -bottom-1 left-0 w-0 h-1 bg-gradient-to-r from-blue-700 to-blue-400 rounded-full group-hover:w-full transition-all duration-300"></span>
+      </a></li>
+    </ul>
+    
+    <div class="md:hidden">
+      <button id="menuBtn" class="text-blue-700 text-2xl hover:text-blue-800 transition-colors">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden md:hidden bg-white/95 backdrop-blur-sm px-6 py-4 shadow-lg border-t border-gray-100">
+    <ul class="space-y-4">
+      <li><a href="index.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Accueil</a></li>
+      <li><a href="about.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">À propos</a></li>
+      <li><a href="services.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Services</a></li>
+      <li><a href="produits.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Produits</a></li>
+      <li><a href="partenaires.html" class="block text-blue-700 font-semibold text-lg py-2 pl-4 rounded-lg bg-blue-50">Partenaires</a></li>
+      <li><a href="contact.html" class="block text-gray-700 hover:text-blue-700 py-2 pl-4 hover:bg-blue-50 rounded-lg transition-colors">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="pt-32 pb-20 max-w-7xl mx-auto px-6">
+  <!-- Héro partenariat (design spécifique) -->
+  <div class="max-w-6xl mx-auto px-6 mb-20">
+    <div class="rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-900 via-blue-800 to-sky-700 text-white relative">
+      <!-- Bandeau image en haut -->
+      <div class="h-40 sm:h-48 w-full overflow-hidden relative">
+        <img src="images/about/medoc-etagere2.jpg" alt="Réseau de partenaires pharmaceutiques" class="w-full h-full object-cover opacity-70">
+        <div class="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
+      </div>
+
+      <!-- Contenu central -->
+      <div class="px-8 sm:px-10 pb-10 pt-6">
+        <div class="inline-flex items-center bg-white/10 border border-white/20 px-4 py-2 rounded-full mb-6 text-xs tracking-wide uppercase">
+          <i class="fas fa-handshake mr-2 text-cyan-300"></i>
+          <span>Programme de partenariat PROMED-PLUS</span>
+        </div>
+
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-10">
+          <div class="max-w-xl">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+              Construisons ensemble un <span class="bg-gradient-to-r from-cyan-300 to-white bg-clip-text text-transparent">déploiement durable</span> de vos marques
+            </h1>
+
+            <p class="text-sm sm:text-base text-blue-100/90 leading-relaxed mb-6">
+              PROMED-PLUS est le relais local des laboratoires qui souhaitent s’implanter ou se renforcer en Afrique de l’Ouest, avec une approche partenariale transparente, des objectifs partagés et un reporting régulier.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 mb-6">
+              <a href="contact.html" class="bg-white text-blue-900 font-semibold px-6 py-3 rounded-xl inline-flex items-center justify-center shadow-lg hover:bg-blue-50 transition-colors">
+                <span>Discuter d’un partenariat</span>
+                <i class="ml-3 fas fa-arrow-right"></i>
+              </a>
+              <a href="services.html" class="border border-cyan-300/70 text-cyan-100 px-6 py-3 rounded-xl inline-flex items-center justify-center hover:bg-white/10 transition-colors">
+                <i class="mr-2 fas fa-file-alt"></i>
+                <span>Voir nos services pour les laboratoires</span>
+              </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs sm:text-sm text-blue-100/90">
+              <div class="flex items-start">
+                <i class="fas fa-map-marked-alt text-cyan-300 mt-1 mr-3"></i>
+                <div>
+                  <div class="font-semibold text-white">Couverture terrain structurée</div>
+                  <p>Visites médicales, suivi des prescripteurs clés et présence dans les établissements de référence.</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <i class="fas fa-chart-line text-emerald-300 mt-1 mr-3"></i>
+                <div>
+                  <div class="font-semibold text-white">Pilotage par la performance</div>
+                  <p>Indicateurs partagés, plans d’action co-construits et remontées marché qualitatives.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Petit bloc stats à droite, distinct de l’accueil -->
+          <div class="w-full lg:w-72 bg-white/5 border border-white/15 rounded-2xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="text-xs font-semibold text-blue-100 uppercase tracking-wide mb-1">Partenaires accompagnés</div>
+              <div class="text-3xl font-extrabold text-white mb-4">15+</div>
+              <p class="text-xs sm:text-sm text-blue-100/90">
+                Laboratoires internationaux, groupes régionaux et acteurs innovants de la santé nous font confiance au quotidien.
+              </p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-white/15 text-xs text-blue-100/80 flex items-center">
+              <i class="fas fa-clock mr-2 text-cyan-300"></i>
+              <span>Réponse à toute demande de partenariat sous 5 jours ouvrés.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Nos références (logos) -->
+  <div class="mb-24">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-blue-800 mb-6">Nos Références Internationales</h2>
+      <div class="h-1 w-24 bg-blue-600 mx-auto rounded-full mb-6"></div>
+      <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+        Une sélection représentative de nos partenaires pharmaceutiques et parapharmaceutiques
+      </p>
+    </div>
+    
+    <!-- Version tapis roulant (mobile) -->
+    <div class="block md:hidden partners-marquee">
+      <div class="partners-track">
+        <!-- Dupliquer les logos pour un défilement continu -->
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/astellas.logo.png" alt="Astellas" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Astellas Pharma</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/ALKEM logo.png" alt="Alkem Laboratories" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Alkem Laboratories</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/BAYER.logo.png" alt="Bayer" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Bayer AG</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/CRINEX.logo.png" alt="Crinex" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Crinex Pharmaceuticals</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/KDL.logo.png" alt="KDL" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">KDL Biotech</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/troikaa.logo.png" alt="Troikaa" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Troikaa Pharmaceuticals</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/MEDIS.logo.png" alt="Medis" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Medis Pharmaceuticals</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/URGO logo.png" alt="Urgo" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Urgo Medical</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/UPSA logo.jpg" alt="Upsa" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">UPSA</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/laboratoire.png" alt="GL" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Golfa Laboratories</div>
+        </div>
+
+        <!-- Deuxième série pour un loop fluide -->
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/astellas.logo.png" alt="Astellas" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Astellas Pharma</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/ALKEM logo.png" alt="Alkem Laboratories" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Alkem Laboratories</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/BAYER.logo.png" alt="Bayer" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Bayer AG</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/CRINEX.logo.png" alt="Crinex" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">Crinex Pharmaceuticals</div>
+        </div>
+        <div class="partners-item logo-container text-center">
+          <div class="logo-img-wrapper">
+            <img src="images/references/KDL.logo.png" alt="KDL" class="partner-logo">
+          </div>
+          <div class="text-gray-800 font-bold text-sm mb-1">KDL Biotech</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grille classique (desktop / tablette) -->
+    <div class="hidden md:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+      <!-- Partenaire 1 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/astellas.logo.png" alt="Astellas" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Astellas Pharma</div>
+        <div class="text-gray-600 text-sm mb-4">Innovation en urologie & oncologie</div>
+      </div>
+      
+      <!-- Partenaire 2 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/ALKEM logo.png" alt="Alkem Laboratories" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Alkem Laboratories</div>
+        <div class="text-gray-600 text-sm mb-4">Médicaments essentiels & génériques</div>
+      </div>
+      
+      <!-- Partenaire 3 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/BAYER.logo.png" alt="Bayer" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Bayer AG</div>
+        <div class="text-gray-600 text-sm mb-4">Santé, nutrition & matériel médical</div>
+      </div>
+      
+      <!-- Partenaire 4 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/CRINEX.logo.png" alt="Crinex" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Crinex Pharmaceuticals</div>
+        <div class="text-gray-600 text-sm mb-4">Parapharmacie & nutrition médicale</div>
+      </div>
+      
+      <!-- Partenaire 5 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/KDL.logo.png" alt="KDL" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">KDL Biotech</div>
+        <div class="text-gray-600 text-sm mb-4">Produits biologiques & biotechnologie</div>
+      </div>
+      
+      <!-- Partenaire 6 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/troikaa.logo.png" alt="Troikaa" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Troikaa Pharmaceuticals</div>
+        <div class="text-gray-600 text-sm mb-4">Dispositifs médicaux innovants</div>
+      </div>
+      
+      <!-- Partenaire 7 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/MEDIS.logo.png" alt="Medis" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Medis Pharmaceuticals</div>
+        <div class="text-gray-600 text-sm mb-4">Nutrition clinique & compléments</div>
+      </div>
+      
+      <!-- Partenaire 8 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/URGO logo.png" alt="Urgo" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">Urgo Medical</div>
+        <div class="text-gray-600 text-sm mb-4">Soins des plaies & dermatologie</div>
+      </div>
+      
+      <!-- Partenaire 9 -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/UPSA logo.jpg" alt="Upsa" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">UPSA</div>
+        <div class="text-gray-600 text-sm mb-4">Antalgiques & automédication</div>
+      </div>
+      
+      <!-- Partenaire 10 - Ajout d'un exemple supplémentaire -->
+      <div class="logo-container text-center">
+        <div class="logo-img-wrapper">
+          <img src="images/references/laboratoire.png" alt="GL" class="partner-logo">
+        </div>
+        <div class="text-gray-800 font-bold text-lg mb-2">GL</div>
+        <div class="text-gray-600 text-sm mb-4">Golfa Laboratories Limited</div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Pourquoi nous choisir -->
+  <div class="bg-gradient-to-r from-blue-800 to-blue-900 rounded-3xl p-12 text-white mb-20 shadow-2xl">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold mb-6">Notre Valeur Ajoutée pour les Partenaires</h2>
+      <div class="h-1 w-24 bg-cyan-400 mx-auto rounded-full"></div>
+    </div>
+    
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="text-center group">
+        <div class="h-20 w-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-map-marked-alt text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Réseau Territorial</h3>
+        <p class="text-blue-100 leading-relaxed">
+          Couverture complète du Mali avec extensions sous-régionales et équipes terrain dédiées.
+        </p>
+      </div>
+      
+      <div class="text-center group">
+        <div class="h-20 w-20 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-chart-line text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Performance Mesurable</h3>
+        <p class="text-blue-100 leading-relaxed">
+          Dashboard de suivi en temps réel, reporting détaillé et objectifs quantifiés.
+        </p>
+      </div>
+      
+      <div class="text-center group">
+        <div class="h-20 w-20 bg-gradient-to-br from-purple-400 to-violet-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-balance-scale text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Expertise Réglementaire</h3>
+        <p class="text-blue-100 leading-relaxed">
+          Connaissance approfondie des autorités sanitaires et processus d'enregistrement accélérés.
+        </p>
+      </div>
+      
+      <div class="text-center group">
+        <div class="h-20 w-20 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
+          <i class="fas fa-users-cog text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold mb-4">Équipe Spécialisée</h3>
+        <p class="text-blue-100 leading-relaxed">
+          Visiteurs médicaux formés, managers sectoriels et support administratif dédié.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Témoignages -->
+  <div class="mb-24">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl font-bold text-blue-800 mb-6">Témoignages de Confiance</h2>
+      <div class="h-1 w-24 bg-blue-600 mx-auto rounded-full mb-6"></div>
+      <p class="text-gray-600 text-lg max-w-3xl mx-auto">
+        Ce que nos partenaires internationaux disent de notre collaboration
+      </p>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="testimonial-card">
+        <div class="flex items-center mb-8">
+          <div class="h-16 w-16 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-700 rounded-2xl flex items-center justify-center mr-6 shadow-md">
+            <i class="fas fa-user-tie text-2xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800 text-lg">Dr. François</h4>
+          </div>
+        </div>
+        <p class="text-gray-700 text-lg leading-relaxed relative z-10">
+          "Notre collaboration avec PROMED-PLUS a transformé notre présence au Mali. Leur équipe terrain a augmenté nos parts de marché de 42% en 18 mois, avec un professionnalisme et une connaissance du secteur exemplaires."
+        </p>
+        <div class="flex mt-8 pt-6 border-t border-gray-100">
+          <div class="text-amber-400 text-xl">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <div class="ml-4 text-sm text-gray-500">Partenaire depuis 2012</div>
+        </div>
+      </div>
+      
+      <div class="testimonial-card">
+        <div class="flex items-center mb-8">
+          <div class="h-16 w-16 bg-gradient-to-br from-green-100 to-green-200 text-green-700 rounded-2xl flex items-center justify-center mr-6 shadow-md">
+            <i class="fas fa-user-md text-2xl"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-800 text-lg">Dr. Diallo</h4>
+          </div>
+        </div>
+        <p class="text-gray-700 text-lg leading-relaxed relative z-10">
+          "L'expertise réglementaire de PROMED-PLUS nous a permis d'enregistrer 12 nouveaux produits en seulement 8 mois. Leur connaissance des procédures locales est un atout stratégique pour notre développement régional."
+        </p>
+        <div class="flex mt-8 pt-6 border-t border-gray-100">
+          <div class="text-amber-400 text-xl">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+          </div>
+          <div class="ml-4 text-sm text-gray-500">Partenaire depuis 2016</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- CTA -->
+  <div class="text-center bg-gradient-to-br from-blue-50 to-white rounded-3xl p-16 shadow-xl border border-blue-100">
+    <h3 class="text-3xl font-bold text-blue-800 mb-6">Rejoignez Notre Réseau d'Excellence</h3>
+    <div class="h-1 w-20 bg-blue-600 mx-auto rounded-full mb-8"></div>
+    <p class="text-gray-600 text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
+      Vous représentez un laboratoire pharmaceutique ou parapharmaceutique et souhaitez développer votre présence en Afrique de l'Ouest ? 
+      Notre équipe vous propose une analyse stratégique gratuite de votre potentiel.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-6 justify-center">
+      <a href="contact.html" class="px-12 py-5 bg-gradient-to-r from-blue-700 to-blue-600 text-white font-bold rounded-xl hover:from-blue-800 hover:to-blue-700 transition-all duration-300 shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 flex items-center justify-center text-lg">
+        <i class="fas fa-calendar-alt mr-4"></i>
+        Demander un rendez-vous stratégique
+      </a>
+      <a href="services.html" class="px-12 py-5 bg-white text-blue-700 border-2 border-blue-700 font-bold rounded-xl hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center text-lg">
+        <i class="fas fa-file-contract mr-4"></i>
+        Voir nos engagements de qualité
+      </a>
+    </div>
+    <p class="mt-8 text-gray-500 text-sm">
+      <i class="fas fa-clock mr-2"></i>Réponse sous 24h • <i class="fas fa-lock ml-4 mr-2"></i>Confidentialité absolue
+    </p>
+  </div>
+</section>
+
+<!-- Footer (version accueil) -->
+<footer class="pt-16 pb-12 bg-gradient-to-b from-blue-900 to-blue-950 text-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex flex-col md:flex-row justify-between items-start gap-12">
+      <!-- Colonne 1 : Logo et coordonnées -->
+      <div class="md:w-2/5">
+        <div class="flex items-center space-x-6 mb-8">
+          <div class="relative">
+            <img src="images/logo-promed-plus.png" alt="PROMED-PLUS Logo" class="h-24 w-24 rounded-xl object-cover shadow-xl">
+            <div class="absolute -bottom-2 -right-2 h-8 w-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center">
+              <i class="fas fa-plus text-white text-xs"></i>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">PROMED-PLUS</h2>
+            <p class="text-blue-300 text-sm mt-1">Agence de Représentation Pharmaceutique</p>
+          </div>
+        </div>
+        <div class="bg-gradient-to-br from-blue-800/40 to-blue-900/40 backdrop-blur-sm rounded-2xl p-6 border border-blue-700/30">
+          <p class="text-blue-200 mb-4">
+            <i class="fas fa-map-marker-alt mr-4 text-cyan-300"></i>
+            TSF Rue 557 Face P76, Route Cité du Niger<br>
+            <span class="ml-9">Bamako / Mali</span>
+          </p>
+          <p class="text-blue-200 mb-4">
+            <i class="fas fa-phone-alt mr-4 text-cyan-300"></i>
+            Tél (+223) 66 66 88 81
+          </p>
+          <p class="text-blue-200">
+            <i class="fas fa-envelope mr-4 text-cyan-300"></i>
+            contact@promed-plus.ml
+          </p>
+        </div>
+      </div>
+      
+      <!-- Colonnes 2-3-4 -->
+      <div class="md:w-3/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Liens rapides -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Navigation</h3>
+          <a href="index.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-home mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Accueil</span>
+          </a>
+          <a href="about.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-building mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>À propos</span>
+          </a>
+          <a href="services.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-briefcase-medical mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Services</span>
+          </a>
+          <a href="produits.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-pills mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Produits</span>
+          </a>
+          <a href="partenaires.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-handshake mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Partenaires</span>
+          </a>
+          <a href="contact.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-headset mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Contact</span>
+          </a>
+        </div>
+
+        <!-- Services -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Nos Services</h3>
+          <a href="services.html#representation" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-users-cog mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Représentation commerciale</span>
+          </a>
+          <a href="services.html#marketing" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-chart-line mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Stratégie & marketing</span>
+          </a>
+          <a href="services.html#affaires" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-file-medical mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Affaires pharmaceutiques</span>
+          </a>
+          <a href="devis.html" class="text-blue-200 hover:text-white hover:underline transition-colors flex items-center group">
+            <i class="fas fa-file-invoice-dollar mr-3 text-blue-400 group-hover:text-cyan-300 transition-colors"></i>
+            <span>Demande de devis</span>
+          </a>
+        </div>
+
+        <!-- Réseaux sociaux & Liens utiles -->
+        <div class="flex flex-col space-y-3">
+          <h3 class="text-sm font-semibold text-blue-100 uppercase tracking-wide mb-3">Connectez-vous</h3>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" aria-label="LinkedIn" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" aria-label="Facebook" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" aria-label="WhatsApp" class="h-10 w-10 rounded-full bg-white/10 flex items-center justify-center text-blue-100 hover:bg-white/20 transition-colors">
+              <i class="fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Section copyright -->
+    <div class="border-t border-blue-800/50 mt-12 pt-10 text-center">
+      <div class="text-blue-300 text-sm mb-4">
+        &copy; 2003-2025 PROMED-PLUS — Agence de Représentation Pharmaceutique — Tous droits réservés.
+      </div>
+      <div class="text-blue-400/70 text-sm">
+        Site réalisé avec expertise pour l'industrie pharmaceutique
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Menu mobile
+  document.getElementById('menuBtn').addEventListener('click', function() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+  });
+
+  // Animation des logos au scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, index * 100);
+        }
+      });
+    }, observerOptions);
+
+    // Animer les cartes de logos
+    document.querySelectorAll('.logo-container').forEach((card) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+
+    // Animer les cartes de témoignages
+    document.querySelectorAll('.testimonial-card').forEach((card, index) => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateX(' + (index % 2 === 0 ? '-30px' : '30px') + ')';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      card.style.transitionDelay = `${index * 0.2}s`;
+      observer.observe(card);
+    });
+  });
+</script>
+</body>
+</html>
